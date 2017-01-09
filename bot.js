@@ -16,10 +16,10 @@ var Twitter = require('twitter');
 var fs = require('fs');
 
 var client = new Twitter({
-  consumer_key: process.env.consumer_key,
-  consumer_secret: process.env.consumer_secret,
-  access_token_key: process.env.access_token_key,
-  access_token_secret: process.env.access_token_secret
+  consumer_key: process.env.CONSUMER_KEY,
+  consumer_secret: process.env.CONSUMER_SECRET,
+  access_token_key: process.env.ACCESS_TOKEN_KEY,
+  access_token_secret: process.env.ACCESS_TOKEN_SECRET
 });
 
 var possibleTweets = [];
@@ -27,7 +27,7 @@ var historic_tweets = [];
 
 var twitter_bot_engine = function() {
   // make a search for the topic of choice
-  client.get('search/tweets', {q: 'free coding resources', count: 150}, function(error, tweets, response) {
+  client.get('search/tweets', {q: 'free coding resources', count: 250}, function(error, tweets, response) {
     // console.log(tweets);
 
     for(tweet in tweets.statuses){
@@ -79,4 +79,4 @@ var twitter_bot_engine = function() {
 
 twitter_bot_engine();
 // setInterval(twitter_bot_engine, 1200000);
-setInterval(twitter_bot_engine, 50000);
+setInterval(twitter_bot_engine, 60000);

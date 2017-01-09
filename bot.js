@@ -27,7 +27,7 @@ var historic_tweets = [];
 
 var twitter_bot_engine = () => {
   // make a search for the topic of choice
-  client.get('search/tweets', {q: 'free javascript resources', count: 150}, function(error, tweets, response) {
+  client.get('search/tweets', {q: 'free coding resources', count: 150}, function(error, tweets, response) {
     // console.log(tweets);
 
     for(tweet in tweets.statuses){
@@ -77,6 +77,6 @@ var twitter_bot_engine = () => {
   });
 }
 
-twitter_bot_engine();
+// twitter_bot_engine();
 // setInterval(twitter_bot_engine, 1200000);
 setInterval(twitter_bot_engine, 60000);

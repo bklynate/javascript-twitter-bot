@@ -1,28 +1,75 @@
-//	Access Token	718511003965763592-QHfTebfkPZJMH0u9Xk7Lq1s2wRjyV4n
-//	Access Token Secret	Z3DO7RQT5GM8Q9tQ7n6pISDHF9w6FrOeYTSpWzEPYFFYD
-// Consumer Key (API Key)	63QhdcWob4PAWH4OeAFVrPmIg
-// Consumer Secret (API Secret)	dGLwG1CYag3rt9GPyo6zuI2pyZGXVQ7WV5IQBBwzdlWWsLV3fV
+/*
+  Goals:
 
+  1. Connect to Twitter - FINISHED
+  2. Run a search for a topic - FINISHED
+  3. choose a random tweet from search results - FINISHED
+  4. confirm the tweet is a new tweet
+  5. post tweet on a twitter accout
+    - need to grab more than 15 tweets to choose from
+  6. run the code every x amount of mins
+  7. figure out how to create a worker with nodejs on heroku
+  8. FUTURE GOAL: add in sentiment analysis
+*/
 
 var Twitter = require('twitter');
 var fs = require('fs');
 
 var client = new Twitter({
-  consumer_key: '63QhdcWob4PAWH4OeAFVrPmIg',
-  consumer_secret: 'dGLwG1CYag3rt9GPyo6zuI2pyZGXVQ7WV5IQBBwzdlWWsLV3fV',
-  access_token_key: '718511003965763592-QHfTebfkPZJMH0u9Xk7Lq1s2wRjyV4n',
-  access_token_secret: 'Z3DO7RQT5GM8Q9tQ7n6pISDHF9w6FrOeYTSpWzEPYFFYD'
+  consumer_key: 'msN2Eb49yED3PuGT3GNrpyiwa',
+  consumer_secret: 'Zlm0nzcWIROnCZIS4Un3HeMMlS4hht4khjVvVJad5wIUfffS90',
+  access_token_key: '818260356569112576-wjXI6GLZKPFN4ZgiHmCnZnqvj3kTny8',
+  access_token_secret: 'tn5rKOkytHvfLWK97AsyeNo2itNkUiEUsCKiF6MDMqRto'
 });
 
-var params = {screen_name: 'nodejs'};
-client.get('statuses/user_timeline', params, function(error, tweets, response) {
-  if (!error) {
-    console.log(tweets);
+var possibleTweets = [];
+var historic_tweets = [];
+// make a search for the topic of choice
+client.get('search/tweets', {q: 'free javascript resources', count: 100}, function(error, tweets, response) {
+  // console.log(tweets);
 
-    // this saves twitter files to a text file
-    fs.writeFile('tweets.json', JSON.stringify(tweets, null, '\t'), (err) => {
-      if(err) throw err;
-      console.log(`It's saved!`);
+  for(tweet in tweets.statuses){
+    possibleTweets.push({
+      'text' : tweets.statuses[tweet].text,
+      'id' : tweets.statuses[tweet].id,
+      'name' : tweets.statuses[tweet].user.name,
+      'screen_name' : tweets.statuses[tweet].user.screen_name,
+      'location' : tweets.statuses[tweet].user.location
+      // 'url' : tweets.statuses[tweet].url
     });
+    // console.log(possibleTweets);
   }
+
+  // select a random tweet
+  var random_element = Math.floor(Math.random() * possibleTweets.length);
+  console.log(random_element);
+  var selected_tweet = possibleTweets[random_element];
+
+  console.log(selected_tweet);
+  // if the random tweet isnt in historic tweets
+    // push to historic tweets
+    // tweet the selected tweet
+  client.post('statuses/update', {status: selected_tweet.text}, function(error, tweet, response) {
+    if (!error) {
+      console.log(tweet);
+    }
+  });
+
+  // this saves the tweet objects in a json file
+  fs.writeFile('tweet_contents.json', possibleTweets, (err) => {
+    if(err) throw err;
+    // console.log(`this was a success!!`)
+  })
+
+  // this saves twitter files to a text file
+  fs.writeFile('tweets.json', JSON.stringify(tweets, null, '\t'), (err) => {
+   if(err) throw err;
+  //  console.log(`...and It's saved!`);
+  });
+
+  // this creates a record of historic tweets in json
+  fs.writeFile('historic_tweets.json', historic_tweets, (err) => {
+    if(err) throw err;
+    // console.log(`Like DJ Khalid says..... Another one!`);
+  })
 });

@@ -25,7 +25,7 @@ var client = new Twitter({
 var possibleTweets = [];
 var historic_tweets = [];
 
-var twitter_bot_engine = () => {
+var twitter_bot_engine = function() {
   // make a search for the topic of choice
   client.get('search/tweets', {q: 'free coding resources', count: 150}, function(error, tweets, response) {
     // console.log(tweets);

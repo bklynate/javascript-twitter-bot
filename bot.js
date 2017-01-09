@@ -27,7 +27,7 @@ var historic_tweets = [];
 
 var twitter_bot_engine = function() {
   // make a search for the topic of choice
-  client.get('search/tweets', {q: 'free coding resources', count: 250}, function(error, tweets, response) {
+  client.get('search/tweets', {q: 'free coding resources', count: 299}, function(error, tweets, response) {
     // console.log(tweets);
 
     for(var tweet in tweets.statuses){

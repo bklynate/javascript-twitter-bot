@@ -69,8 +69,8 @@ var twitter_bot_engine = function() {
             console.log('Oh Shit, I Tweeted!');
           }
         });
-      
       }
+      console.log('inside while loop:---',historic_tweets)
     }
     
     console.log(historic_tweets)

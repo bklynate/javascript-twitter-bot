@@ -78,4 +78,4 @@ var twitter_bot_engine = () => {
 }
 
 twitter_bot_engine();
-setInterval(twitter_bot_engine, 20000);
+setInterval(twitter_bot_engine, 1200000);

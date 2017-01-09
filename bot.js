@@ -54,6 +54,7 @@ var twitter_bot_engine = function() {
       // tweet the selected tweet
       client.post('statuses/update', {status: selected_tweet.text}, function(error, tweet, response) {
         if (!error) {
+          console.log('Bkajsdaksjdasd');
           console.log(tweet);
         }
       });

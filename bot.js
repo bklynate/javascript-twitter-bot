@@ -79,4 +79,4 @@ var twitter_bot_engine = function() {
 
 twitter_bot_engine();
 // setInterval(twitter_bot_engine, 1200000);
-setInterval(twitter_bot_engine, 60000);
+setInterval(twitter_bot_engine, 50000);

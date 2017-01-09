@@ -43,21 +43,34 @@ var twitter_bot_engine = function() {
     }
 
     // select a random tweet
-    var random_element = Math.floor(Math.random() * possibleTweets.length) + 1;
-    var selected_tweet = possibleTweets[random_element];
+    // var random_element = Math.floor(Math.random() * possibleTweets.length) + 1;
+    // var selected_tweet = possibleTweets[random_element];
     console.log(selected_tweet.id)
     // if the random tweet isnt in historic tweets
-    if(!(selected_tweet.id in historic_tweets)){
-      // push to historic tweets
-      console.log('fired off from inside tweet loop')
-      historic_tweets.push(selected_tweet.id)
-      // tweet the selected tweet
-      client.post('statuses/update', {status: selected_tweet.text}, function(error, tweet, response) {
-        if (!error) {
-          console.log("Oh shit, I tweeted! lol");
-        }
-      });
-    }  
+    var found_one = false
+    while(!found_one){
+      
+      // Random selection of tweets
+      random_element = Math.floor(Math.random() * possibleTweets.length-1) + 1;  
+      
+      // Choose a random tweet
+      selected_tweet = possibleTweets[random_element];
+      
+      if (!(selected_tweet.id in historic_tweets) && (selected_tweet.screen_name != "freecodemine")){
+        
+        // Push the selected_tweet to historic_tweets
+        historic_tweets.push(selected_tweet);
+        found_one = true;
+        
+        // Test case for tweeting out
+        client.post('statuses/update', {status: selected_tweet.text}, function(error, tweet, response) {
+          if (!error) {
+            console.log('Oh Shit, I Tweeted!');
+          }
+        });
+      
+      }
+    }
     
     console.log(historic_tweets)
     // this saves the tweet objects in a json file
@@ -81,5 +94,5 @@ var twitter_bot_engine = function() {
 }
 
 twitter_bot_engine();
-// setInterval(twitter_bot_engine, 1200000);
-setInterval(twitter_bot_engine, 60000);
+setInterval(twitter_bot_engine, 1200000);
+// setInterval(twitter_bot_engine, 60000);

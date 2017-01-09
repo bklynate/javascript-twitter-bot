@@ -55,12 +55,12 @@ var twitter_bot_engine = function() {
       client.post('statuses/update', {status: selected_tweet.text}, function(error, tweet, response) {
         if (!error) {
           console.log('Bkajsdaksjdasd');
-          console.log(tweet);
+          console.log("Oh shit, I tweeted! lol");
         }
       });
     }  
-      
-
+    
+    console.log(historic_tweets)
     // this saves the tweet objects in a json file
     fs.writeFile('tweet_contents.json', possibleTweets, (err) => {
       if(err) throw err;

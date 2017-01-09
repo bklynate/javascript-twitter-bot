@@ -30,7 +30,7 @@ var twitter_bot_engine = function() {
   client.get('search/tweets', {q: 'free coding resources', count: 250}, function(error, tweets, response) {
     // console.log(tweets);
 
-    for(tweet in tweets.statuses){
+    for(var tweet in tweets.statuses){
       possibleTweets.push({
         'text' : tweets.statuses[tweet].text,
         'id' : tweets.statuses[tweet].id,
@@ -44,18 +44,20 @@ var twitter_bot_engine = function() {
 
     // select a random tweet
     var random_element = Math.floor(Math.random() * possibleTweets.length) + 1;
-    console.log(random_element);
     var selected_tweet = possibleTweets[random_element];
-
-    console.log(selected_tweet.text);
+    console.log(selected_tweet.id)
     // if the random tweet isnt in historic tweets
+    if(!(selected_tweet.id in historic_tweets)){
       // push to historic tweets
+      historic_tweets.push(selected_tweet.id)
       // tweet the selected tweet
-    client.post('statuses/update', {status: selected_tweet.text}, function(error, tweet, response) {
-      if (!error) {
-        console.log(tweet);
-      }
-    });
+      client.post('statuses/update', {status: selected_tweet.text}, function(error, tweet, response) {
+        if (!error) {
+          console.log(tweet);
+        }
+      });
+    }  
+      
 
     // this saves the tweet objects in a json file
     fs.writeFile('tweet_contents.json', possibleTweets, (err) => {

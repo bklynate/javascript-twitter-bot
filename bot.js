@@ -16,10 +16,10 @@ var Twitter = require('twitter');
 var fs = require('fs');
 
 var client = new Twitter({
-  consumer_key: 'msN2Eb49yED3PuGT3GNrpyiwa',
-  consumer_secret: 'Zlm0nzcWIROnCZIS4Un3HeMMlS4hht4khjVvVJad5wIUfffS90',
-  access_token_key: '818260356569112576-wjXI6GLZKPFN4ZgiHmCnZnqvj3kTny8',
-  access_token_secret: 'tn5rKOkytHvfLWK97AsyeNo2itNkUiEUsCKiF6MDMqRto'
+  consumer_key: 'msN2Eb49yED$53PuGT3GNrpyiwa',
+  consumer_secret: 'Zlm0nzcWIROnCZIS4U4344n3HeMMlS4hht4khjVvVJad5wIUfffS90',
+  access_token_key: '818260356569112576-wjXI32346GLZKPFN4ZgiHmCnZnqvj3kTny8',
+  access_token_secret: 'tn5rKOkytHvfLWK97AsyeNo245654itNkUiEUsCKiF6MDMqRto'
 });
 
 var possibleTweets = [];

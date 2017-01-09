@@ -64,15 +64,16 @@ var twitter_bot_engine = function() {
         found_one = true;
         
         // Test case for tweeting out
+        console.log(selected_tweet.text)
         client.post('statuses/update', {status: selected_tweet.text}, function(error, tweet, response) {
           if (!error) {
             console.log('Oh Shit, I Tweeted!');
           }
         });
       }
-      console.log('inside while loop:---',historic_tweets)
+      console.log('inside while loop:---->',historic_tweets)
     }
-    console.log('ouside while loop:---',historic_tweets)
+    console.log('ouside while loop:---->',historic_tweets)
     // this saves the tweet objects in a json file
     fs.writeFile('tweet_contents.json', possibleTweets, (err) => {
       if(err) throw err;

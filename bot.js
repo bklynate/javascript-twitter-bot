@@ -60,7 +60,7 @@ var twitter_bot_engine = function() {
       if (!(selected_tweet.id in historic_tweets) && (selected_tweet.screen_name != "freecodemine")){
         
         // Push the selected_tweet to historic_tweets
-        historic_tweets.push(selected_tweet);
+        historic_tweets.push(selected_tweet.id);
         found_one = true;
         
         // Test case for tweeting out
@@ -72,8 +72,6 @@ var twitter_bot_engine = function() {
       }
       console.log('inside while loop:---',historic_tweets)
     }
-    
-    console.log(historic_tweets)
     // this saves the tweet objects in a json file
     fs.writeFile('tweet_contents.json', possibleTweets, (err) => {
       if(err) throw err;

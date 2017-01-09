@@ -45,8 +45,7 @@ var twitter_bot_engine = function() {
     // select a random tweet
     var random_element = Math.floor(Math.random() * possibleTweets.length) + 1;
     var selected_tweet = possibleTweets[random_element];
-    console.log(selected_tweet)
-    console.log(typeof selected_tweet)
+    console.log(selected_tweet.id)
     // if the random tweet isnt in historic tweets
     if(!(selected_tweet.id in historic_tweets)){
       // push to historic tweets

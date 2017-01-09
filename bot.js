@@ -49,6 +49,7 @@ var twitter_bot_engine = function() {
     // if the random tweet isnt in historic tweets
     if(!(selected_tweet.id in historic_tweets)){
       // push to historic tweets
+      console.log('fired off from inside tweet loop')
       historic_tweets.push(selected_tweet.id)
       // tweet the selected tweet
       client.post('statuses/update', {status: selected_tweet.text}, function(error, tweet, response) {

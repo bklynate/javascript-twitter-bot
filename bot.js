@@ -33,8 +33,8 @@ var possibleSearchs = [
   'learn node js',
   'express js node resources'
 ];
-var random_element = Math.floor(Math.random() * possibleSearchs.length-1);
-var selectedSearch = possibleSearchs[random_element]
+var random_search_element = Math.floor(Math.random() * possibleSearchs.length-1);
+var selectedSearch = possibleSearchs[random_search_element];
 
 var twitter_bot_engine = function() {
   // make a search for the topic of choice

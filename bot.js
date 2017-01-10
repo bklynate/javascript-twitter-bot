@@ -53,10 +53,6 @@ var twitter_bot_engine = function() {
       // console.log(possibleTweets);
     }
 
-    // select a random tweet
-    // var random_element = Math.floor(Math.random() * possibleTweets.length) + 1;
-    // var selected_tweet = possibleTweets[random_element];
-    // console.log(selected_tweet.id)
     // if the random tweet isnt in historic tweets
     var found_one = false
     while(!found_one){

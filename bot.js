@@ -4,12 +4,12 @@
   1. Connect to Twitter - FINISHED
   2. Run a search for a topic - FINISHED
   3. choose a random tweet from search results - FINISHED
-  4. confirm the tweet is a new tweet
+  4. confirm the tweet is a new tweet - IN PROGRESS
   5. post tweet on a twitter accout - FINISHED
     - need to grab more than 15 tweets to choose from - FINISHED
-  6. run the code every x amount of mins
-  7. figure out how to create a worker with nodejs on heroku
-  8. FUTURE GOAL: add in sentiment analysis
+  6. run the code every x amount of mins - FINISHED
+  7. figure out how to create a worker with nodejs on heroku - FINISHED
+  8. FUTURE WILD GOAL: add in sentiment analysis
 */
 
 var Twitter = require('twitter');
@@ -24,10 +24,21 @@ var client = new Twitter({
 
 var possibleTweets = [];
 var historic_tweets = [];
+var possibleSearchs = [
+  'free coding resources',
+  'free javascript resoures',
+  'free coding tutorials',
+  'learn coding for free',
+  'free ruby resources',
+  'learn node js',
+  'express js node resources'
+];
+var random_element = Math.floor(Math.random() * possibleSearchs.length-1);
+var selectedSearch = possibleSearchs[random_element]
 
 var twitter_bot_engine = function() {
   // make a search for the topic of choice
-  client.get('search/tweets', {q: 'free coding resources', count: 299}, function(error, tweets, response) {
+  client.get('search/tweets', {q: selectedSearch, count: 299}, function(error, tweets, response) {
     // console.log(tweets);
 
     for(var tweet in tweets.statuses){
@@ -49,20 +60,20 @@ var twitter_bot_engine = function() {
     // if the random tweet isnt in historic tweets
     var found_one = false
     while(!found_one){
-      
+
       // Random selection of tweets
-      random_element = Math.floor(Math.random() * possibleTweets.length) + 1;  
-      
+      random_element = Math.floor(Math.random() * possibleTweets.length) + 1;
+
       // Choose a random tweet
       selected_tweet = possibleTweets[random_element];
       console.log('Hey I ran')
-      
+
       if (!(selected_tweet.id in historic_tweets) && (selected_tweet.screen_name != "freecodemine")){
-        
+
         // Push the selected_tweet to historic_tweets
         historic_tweets.push(selected_tweet.id);
         found_one = true;
-        
+
         // Test case for tweeting out
         console.log(selected_tweet.text)
         client.post('statuses/update', {status: selected_tweet.text}, function(error, tweet, response) {
@@ -71,9 +82,9 @@ var twitter_bot_engine = function() {
           }
         });
       }
-      console.log('inside while loop:---->',historic_tweets)
+      console.log('inside while loop:---->',historic_tweets);
     }
-    console.log('ouside while loop:---->',historic_tweets)
+    console.log('ouside while loop:---->',historic_tweets);
     // this saves the tweet objects in a json file
     fs.writeFile('tweet_contents.json', possibleTweets, (err) => {
       if(err) throw err;

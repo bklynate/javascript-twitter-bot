@@ -31,7 +31,12 @@ var possibleSearchs = [
   'learn coding for free',
   'free ruby resources',
   'learn node js',
-  'express js node resources'
+  'express js node resources',
+  'free python resources',
+  'free ruby on rails',
+  'Brooklyn javascript',
+  'NYC Javascript meetups',
+  'NYC Tech Pipline info'
 ];
 var random_search_element = Math.floor(Math.random() * (possibleSearchs.length - 1));
 var selectedSearch = possibleSearchs[random_search_element];

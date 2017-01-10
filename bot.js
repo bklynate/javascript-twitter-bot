@@ -35,7 +35,7 @@ var possibleSearchs = [
 ];
 var random_search_element = Math.floor(Math.random() * possibleSearchs.length-1);
 var selectedSearch = possibleSearchs[random_search_element];
-
+console.log(selectedSearch);
 var twitter_bot_engine = function() {
   // make a search for the topic of choice
   client.get('search/tweets', {q: selectedSearch, count: 299}, function(error, tweets, response) {
@@ -62,6 +62,7 @@ var twitter_bot_engine = function() {
 
       // Choose a random tweet
       selected_tweet = possibleTweets[random_element];
+      console.log(selected_tweet);
       console.log('Hey I ran')
 
       if (!(selected_tweet.id in historic_tweets) && (selected_tweet.screen_name != "freecodemine")){

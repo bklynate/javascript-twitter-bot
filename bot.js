@@ -33,9 +33,10 @@ var possibleSearchs = [
   'learn node js',
   'express js node resources'
 ];
-var random_search_element = Math.floor(Math.random() * possibleSearchs.length-1);
+var random_search_element = Math.floor(Math.random() * (possibleSearchs.length - 1));
 var selectedSearch = possibleSearchs[random_search_element];
-console.log(selectedSearch);
+
+console.log("this is selected search: ", selectedSearch);
 var twitter_bot_engine = function() {
   // make a search for the topic of choice
   client.get('search/tweets', {q: selectedSearch, count: 299}, function(error, tweets, response) {
@@ -58,12 +59,12 @@ var twitter_bot_engine = function() {
     while(!found_one){
 
       // Random selection of tweets
-      random_element = Math.floor(Math.random() * possibleTweets.length) + 1;
-
+      random_element = Math.floor(Math.random() * (possibleTweets.length - 1));
+      console.log('Random Element: ', random_element)
       // Choose a random tweet
       selected_tweet = possibleTweets[random_element];
       console.log(selected_tweet);
-      console.log('Hey I ran')
+      console.log('Hey I ran');
 
       if (!(selected_tweet.id in historic_tweets) && (selected_tweet.screen_name != "freecodemine")){
 
@@ -105,5 +106,5 @@ var twitter_bot_engine = function() {
 }
 
 twitter_bot_engine();
-// setInterval(twitter_bot_engine, 1200000);
-setInterval(twitter_bot_engine, 60000);
+setInterval(twitter_bot_engine, 1200000);
+// setInterval(twitter_bot_engine, 60000);

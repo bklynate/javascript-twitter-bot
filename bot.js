@@ -40,7 +40,9 @@ var possibleSearchs = [
   'NYC Edtech',
   'free coding brooklyn'
 ];
+// this is the random element used to select a possible search query
 var randomSearchElement = Math.floor(Math.random() * (possibleSearchs.length - 1));
+// this is the search query
 var selectedSearch = possibleSearchs[randomSearchElement];
 
 console.log("this is selected search: ", selectedSearch);
@@ -92,6 +94,7 @@ var twitterBotEngine = function() {
     console.log('ouside while loop:---->',historicTweets);
     console.log(selectedSearch);
     console.log(historicTweets);
+
     // this saves the tweet objects in a json file
     fs.writeFile('tweet_contents.json', possibleTweets, (err) => {
       if(err) throw err;

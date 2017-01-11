@@ -37,7 +37,8 @@ var possibleSearchs = [
   'Brooklyn javascript',
   'NYC Javascript meetups',
   'NYC Tech Pipline info',
-  'NYC Edtech'
+  'NYC Edtech',
+  'free coding brooklyn'
 ];
 var randomSearchElement = Math.floor(Math.random() * (possibleSearchs.length - 1));
 var selectedSearch = possibleSearchs[randomSearchElement];

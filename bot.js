@@ -34,11 +34,10 @@ var possibleSearchs = [
   'express js node resources',
   'free python resources',
   'free ruby on rails',
-  'Brooklyn javascript',
   'NYC Javascript meetups',
   'NYC Tech Pipline info',
   'NYC Edtech',
-  'free coding brooklyn'
+  'NYC Per Scholas'
 ];
 // this is the random element used to select a possible search query
 var randomSearchElement = Math.floor(Math.random() * (possibleSearchs.length - 1));

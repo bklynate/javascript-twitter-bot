@@ -83,6 +83,7 @@ var twitterBotEngine = function() {
         // Test case for tweeting out
         console.log(selectedTweet.text);
         client.post('statuses/update', {status: selectedTweet.text}, function(error, tweet, response) {
+          console.log('ran inside client post');
           if (!error) {
             console.log('Oh Shit, I Tweeted!');
           }

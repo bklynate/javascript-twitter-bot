@@ -88,9 +88,9 @@ var twitterBotEngine = function() {
           }
         });
       }
-      console.log('inside while loop:---->',historicTweets);
+      console.log('inside while loop:---->');
     }
-    console.log('ouside while loop:---->',historicTweets);
+    console.log('ouside while loop:---->');
     console.log(selectedSearch);
     console.log(historicTweets);
 

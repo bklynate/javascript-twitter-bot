@@ -95,19 +95,16 @@ var twitterBotEngine = function() {
     // this saves the tweet objects in a json file
     fs.writeFile('tweet_contents.json', possibleTweets, (err) => {
       if(err) throw err;
-      // console.log(`this was a success!!`)
     })
 
     // this saves twitter files to a text file
     fs.writeFile('tweets.json', JSON.stringify(tweets, null, '\t'), (err) => {
      if(err) throw err;
-    //  console.log(`...and It's saved!`);
     });
 
     // this creates a record of historic tweets in json
     fs.writeFile('historic_tweets.json', historicTweets, (err) => {
       if(err) throw err;
-      // console.log(`Like DJ Khalid says..... Another one!`);
     })
   });
 }

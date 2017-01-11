@@ -86,6 +86,8 @@ var twitterBotEngine = function() {
           console.log('ran inside client post');
           if (!error) {
             console.log('Oh Shit, I Tweeted!');
+          } else {
+            console.log(error);
           }
         });
       }

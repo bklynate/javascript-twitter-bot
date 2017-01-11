@@ -23,7 +23,7 @@ var client = new Twitter({
 });
 
 var possibleTweets = [];
-var historic_tweets = [];
+var historicTweets = [];
 var possibleSearchs = [
   'free coding resources',
   'free javascript resoures',
@@ -36,13 +36,14 @@ var possibleSearchs = [
   'free ruby on rails',
   'Brooklyn javascript',
   'NYC Javascript meetups',
-  'NYC Tech Pipline info'
+  'NYC Tech Pipline info',
+  'NYC Edtech'
 ];
-var random_search_element = Math.floor(Math.random() * (possibleSearchs.length - 1));
-var selectedSearch = possibleSearchs[random_search_element];
+var randomSearchElement = Math.floor(Math.random() * (possibleSearchs.length - 1));
+var selectedSearch = possibleSearchs[randomSearchElement];
 
 console.log("this is selected search: ", selectedSearch);
-var twitter_bot_engine = function() {
+var twitterBotEngine = function() {
   // make a search for the topic of choice
   client.get('search/tweets', {q: selectedSearch, count: 299}, function(error, tweets, response) {
     // console.log(tweets);
@@ -60,36 +61,36 @@ var twitter_bot_engine = function() {
     }
 
     // if the random tweet isnt in historic tweets
-    var found_one = false
-    while(!found_one){
+    var foundOne = false;
+    while(!foundOne){
 
       // Random selection of tweets
-      random_element = Math.floor(Math.random() * (possibleTweets.length - 1));
-      console.log('Random Element: ', random_element)
+      randomElement = Math.floor(Math.random() * (possibleTweets.length - 1));
+      console.log('Random Element: ', randomElement);
       // Choose a random tweet
-      selected_tweet = possibleTweets[random_element];
-      console.log(selected_tweet);
+      selectedTweet = possibleTweets[randomElement];
+      console.log(selectedTweet);
       console.log('Hey I ran');
 
-      if (!(selected_tweet.id in historic_tweets) && (selected_tweet.screen_name != "freecodemine")){
+      if (!(selectedTweet.id in historicTweets) && (selectedTweet.screen_name != "freecodemine")){
 
         // Push the selected_tweet to historic_tweets
-        historic_tweets.push(selected_tweet.id);
-        found_one = true;
+        historicTweets.push(selectedTweet.id);
+        foundOne = true;
 
         // Test case for tweeting out
-        console.log(selected_tweet.text)
-        client.post('statuses/update', {status: selected_tweet.text}, function(error, tweet, response) {
+        console.log(selectedTweet.text);
+        client.post('statuses/update', {status: selectedTweet.text}, function(error, tweet, response) {
           if (!error) {
             console.log('Oh Shit, I Tweeted!');
           }
         });
       }
-      console.log('inside while loop:---->',historic_tweets);
+      console.log('inside while loop:---->',historicTweets);
     }
-    console.log('ouside while loop:---->',historic_tweets);
+    console.log('ouside while loop:---->',historicTweets);
     console.log(selectedSearch);
-    console.log(historic_tweets);
+    console.log(historicTweets);
     // this saves the tweet objects in a json file
     fs.writeFile('tweet_contents.json', possibleTweets, (err) => {
       if(err) throw err;
@@ -103,13 +104,13 @@ var twitter_bot_engine = function() {
     });
 
     // this creates a record of historic tweets in json
-    fs.writeFile('historic_tweets.json', historic_tweets, (err) => {
+    fs.writeFile('historic_tweets.json', historicTweets, (err) => {
       if(err) throw err;
       // console.log(`Like DJ Khalid says..... Another one!`);
     })
   });
 }
 
-twitter_bot_engine();
-setInterval(twitter_bot_engine, 1200000);
-// setInterval(twitter_bot_engine, 60000);
+twitterBotEngine();
+setInterval(twitterBotEngine, 1200000);
+// setInterval(twitterBotEngine, 60000);

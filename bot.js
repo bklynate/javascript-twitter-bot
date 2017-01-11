@@ -115,5 +115,5 @@ var twitterBotEngine = function() {
 }
 
 twitterBotEngine();
-// setInterval(twitterBotEngine, 900000); // 15mins per tweet attempt
-setInterval(twitterBotEngine, 60000);
+setInterval(twitterBotEngine, 1300000); // 15mins per tweet attempt
+// setInterval(twitterBotEngine, 60000);

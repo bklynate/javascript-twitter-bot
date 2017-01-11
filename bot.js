@@ -112,5 +112,5 @@ var twitterBotEngine = function() {
 }
 
 twitterBotEngine();
-setInterval(twitterBotEngine, 1200000);
+setInterval(twitterBotEngine, 1100000);
 // setInterval(twitterBotEngine, 60000);

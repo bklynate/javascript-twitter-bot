@@ -1,1 +1,1 @@
-#Follow my twitter ....well on twitter lol [@FreeCodeMine](https://twitter.com/FreeCodeMine)
+#Follow my bot on twitter [@FreeCodeMine](https://twitter.com/FreeCodeMine)

@@ -71,7 +71,7 @@ var twitterBotEngine = function() {
       console.log('Random Element: ', randomElement);
       // Choose a random tweet
       selectedTweet = possibleTweets[randomElement];
-      console.log(selectedTweet);
+      console.log(typeof selectedTweet);
       console.log('Hey I ran');
 
       if (!(selectedTweet.id in historicTweets) && (selectedTweet.screen_name != "freecodemine")){

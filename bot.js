@@ -101,6 +101,7 @@ var twitterBotEngine = function() {
           console.log('ran inside client post');
           if (!error) {
             console.log('Oh Shit, I Tweeted!');
+            console.log('Yung Javascript!!')
           } else {
             console.log(error);
           }
@@ -130,5 +131,5 @@ var twitterBotEngine = function() {
 }
 
 twitterBotEngine();
-setInterval(twitterBotEngine, 28800000); // 15mins per tweet attempt
+setInterval(twitterBotEngine, 16200000); // 15mins per tweet attempt
 // setInterval(twitterBotEngine, 60000);

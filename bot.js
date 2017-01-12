@@ -9,7 +9,7 @@
     - need to grab more than 15 tweets to choose from - FINISHED
   6. run the code every x amount of mins - FINISHED
   7. figure out how to create a worker with nodejs on heroku - FINISHED
-  8. FUTURE WILD GOAL: add in sentiment analysis
+  8. FUTURE WILD GOAL: add in sentiment analysis in some manner
 */
 
 var Twitter = require('twitter');
@@ -37,10 +37,20 @@ var possibleSearchs = [
   'NYC Javascript meetups',
   'NYC Tech Pipline info',
   'NYC Edtech',
-  'NYC Per Scholas'
+  'NYC Per Scholas',
+  'Free Code Camp',
+  'Free code camp NYC',
+  'NYC javascript meetups',
+  'Free hackathons nyc'
 ];
 // this is the random element used to select a possible search query
 var randomSearchElement = Math.floor(Math.random() * (possibleSearchs.length - 1));
+
+// a check for edge cases where randomSearchElement equals 0 then minuses to -1
+if(randomSearchElement < 0){
+  randomSearchElement++
+}
+
 // this is the search query
 var selectedSearch = possibleSearchs[randomSearchElement];
 
@@ -68,13 +78,18 @@ var twitterBotEngine = function() {
 
       // Random selection of tweets
       randomElement = Math.floor(Math.random() * (possibleTweets.length - 1));
+
+      // a check for edge cases where randomElement equals 0 then minuses to -1
+      if(randomElement < 0){
+        randomElement+=2
+      }
       console.log('Random Element: ', randomElement);
       // Choose a random tweet
       selectedTweet = possibleTweets[randomElement];
       console.log(typeof selectedTweet);
-      console.log('Hey I ran');
+      console.log('possible tweets length: ', possibleTweets.length);
 
-      if (!(selectedTweet.id in historicTweets) && (selectedTweet.screen_name != "freecodemine")){
+      if (!(selectedTweet.id in historicTweets) && (selectedTweet.screen_name != "FreeCodeMine")){
 
         // Push the selected_tweet to historic_tweets
         historicTweets.push(selectedTweet.id);
@@ -115,5 +130,5 @@ var twitterBotEngine = function() {
 }
 
 twitterBotEngine();
-setInterval(twitterBotEngine, 1300000); // 15mins per tweet attempt
+setInterval(twitterBotEngine, 28800000); // 15mins per tweet attempt
 // setInterval(twitterBotEngine, 60000);

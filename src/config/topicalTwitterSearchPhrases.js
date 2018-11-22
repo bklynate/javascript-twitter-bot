@@ -8,6 +8,7 @@ export default [
   'learn react.js',
   'node js tutorials',
   'you dont know js',
+  'afrotech',
   'learn redux',
   'learn GraphQL',
   'learn coding for free',

@@ -56,6 +56,7 @@ const twitterBotEngine = async function() {
     return twitterBotEngine();
 
   try {
+    console.log('HELLO NATHANIEL')
     await client.post('statuses/update', { status: foundTweet.text });
   } catch (e) {
     return 'Something went horribly wrong... but no worries!';

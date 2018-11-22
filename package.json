@@ -5,9 +5,9 @@
   "main": "bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run prod:buildbot; node ./server-dist/",
+    "start": "npm run prod:buildbot; node ./server-dist/bot.js",
     "prod:buildbot": "rm -rf ./server-dist && babel ./src -d ./server-dist --copy-files",
-    "dev": "nodemon --exec babel-node --presets env,stage-2 bot.js"
+    "dev": "nodemon --exec babel-node --presets env,stage-2 ./src/bot.js"
   },
   "author": "Nate Quashie",
   "license": "ISC",
@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-2": "^6.24.1",
     "nodemon": "^1.18.6"

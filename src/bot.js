@@ -1,5 +1,10 @@
 import Twitter from 'twitter';
-import { consumer_key, consumer_secret, access_token_key, access_token_secret } from './config/index';
+import {
+  consumer_key,
+  consumer_secret,
+  access_token_key,
+  access_token_secret,
+} from './config/index';
 import topicalTwitterSearchPhrases from './config/topicalTwitterSearchPhrases';
 
 const client = new Twitter({

@@ -55,8 +55,9 @@ const twitterBotEngine = async function() {
   if (tweetArchive[foundTweet.id] || foundTweet.screen_name === 'FreeCodeMine')
     return twitterBotEngine();
 
+  tweetArchive[foundTweet.id] = true;
+
   try {
-    console.log('HELLO NATHANIEL')
     await client.post('statuses/update', { status: foundTweet.text });
   } catch (e) {
     return 'Something went horribly wrong... but no worries!';

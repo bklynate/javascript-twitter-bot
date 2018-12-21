@@ -12,6 +12,8 @@ export default [
   'learn redux',
   'learn GraphQL',
   'learn coding for free',
+  'apollo client',
+  'apollo graphql',
   'learn node js',
   'express js node resources',
   'javascript game development',

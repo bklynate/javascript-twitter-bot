@@ -23,6 +23,7 @@ export default [
   'react native tutorial',
   'brooklyn.js',
   'nyc hackathon',
+  'javascript weekly',
   '30 days of javascript',
   '100 days of code',
 ];

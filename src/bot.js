@@ -41,8 +41,11 @@ function getSearchPhrase() {
   return topicalTweetPhrase;
 }
 
+let counter = 0;
+
 const twitterBotEngine = async function() {
   // make a search for the topic of choice
+  console.log('Inside TwitterBot::', `${counter++}`)
   const { statuses: tweets } = await client.get('search/tweets', {
     q: getSearchPhrase(),
     count: 299,
@@ -55,24 +58,32 @@ const twitterBotEngine = async function() {
     screen_name,
   }));
 
-  if (foundTweets.length === 0) return twitterBotEngine();
-
+  if (foundTweets.length === 0) {
+    console.log('Inside firstIFBlock::', `${counter++}`)
+    return twitterBotEngine();
+  }
   const randomIndexOfFoundTweet = getRandomElementIndex(foundTweets);
   const foundTweet = foundTweets[randomIndexOfFoundTweet];
 
   TweetArchive.findById(foundTweet.id, async err => {
+    console.log('Inside TweetArchive::', `${counter++}`)
     if (err) {
+      console.log('Inside ErrIFBlock::', `${counter++}`)
       if (foundTweet.screen_name === 'FreeCodeMine') {
+        console.log('Inside screen_name::Check', `${counter++}`)
         return twitterBotEngine();
       } else {
+        console.log('Inside else', `${counter++}`)
         await TweetArchive.create(foundTweet);
         return;
       }
     }
+    console.log('Second Inside TweetArchive', `${counter++}`)
     return twitterBotEngine();
   });
 
   try {
+    console.log('try', `${counter++}`)
     await client.post('statuses/update', {
       status: foundTweet.text,
     });

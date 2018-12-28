@@ -17,7 +17,7 @@ export default [
   'learn node js',
   'express js node resources',
   'javascript game development',
-  'NYC Tech Pipline',
+  'NYC Tech Pipeline',
   'Free Code Camp',
   'NYC javascript meetups',
   'react native tutorial',
@@ -26,4 +26,6 @@ export default [
   'javascript weekly',
   '30 days of javascript',
   '100 days of code',
+  'full-stack react',
+  'frontend masters',
 ];

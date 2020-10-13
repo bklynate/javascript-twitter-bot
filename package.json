@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run prod:buildbot; node ./server-dist/bot.js",
+    "upgrade-interactive": "npm-check --update",
     "prod:buildbot": "rm -rf ./server-dist && babel ./src -d ./server-dist --copy-files",
     "dev": "nodemon --exec babel-node --presets env,stage-2 ./src/bot.js"
   },
@@ -22,6 +23,7 @@
     "twitter": "^1.7.0"
   },
   "devDependencies": {
-    "nodemon": "^1.18.6"
+    "nodemon": "^2.0.4",
+    "npm-check": "^5.9.2"
   }
 }

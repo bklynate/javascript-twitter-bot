@@ -59,7 +59,8 @@ const twitterBotEngine = async function() {
   const resolvedTweet = await Tweet.findByPk(foundTweet.tweet_id);
 
   if (resolvedTweet || foundTweet.screen_name === 'FreeCodeMine') return twitterBotEngine()
-  if (resolvedTweet === null && foundTweet.screen_name !== 'FreeCodeMine') Tweet.create(foundTweet)
+
+  Tweet.create(foundTweet)
 
   try {
     await client.post('statuses/update', {

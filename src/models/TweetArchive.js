@@ -1,17 +1,24 @@
-import mongoose from 'mongoose';
+export default (sequelize, DataTypes) => {
+  const Tweet = sequelize.define('tweet', {
+    tweet_id: {
+      type: DataTypes.BIGINT,
+      primaryKey: true,
+    },
+    text: {
+      type: DataTypes.STRING,
+    },
+    name: {
+      type: DataTypes.STRING,
+    },
+    screen_name: {
+      type: DataTypes.STRING,
+    },
+    created_at: {
+      type: 'TIMESTAMP',
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+      allowNull: false,
+    },
+  })
 
-const { Schema } = mongoose;
-
-const TweetArchiveSchema = new Schema({
-  id: String,
-  text: String,
-  name: String,
-  screen_name: String,
-  created_at: {
-    type: Date,
-    required: true,
-    default: Date.now,
-  },
-});
-
-mongoose.model('tweetArchive', TweetArchiveSchema);
+  return Tweet
+}

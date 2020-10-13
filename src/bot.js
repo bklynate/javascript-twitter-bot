@@ -1,5 +1,5 @@
 import Twitter from 'twitter';
-import mongoose from 'mongoose';
+
 import {
   consumer_key,
   consumer_secret,
@@ -7,13 +7,11 @@ import {
   access_token_secret,
 } from './config/index';
 import topicalTwitterSearchPhrases from './config/topicalTwitterSearchPhrases';
+import models from './models';
 
-import TweetArchiveModel from './models/TweetArchive';
+const EVERY_12_HOURS = 43200000
 
-const mongoUrl = process.env.MONGODB_URI || 'mongodb://localhost/twitterBot_db';
-
-mongoose.Promise = global.Promise;
-mongoose.connect(mongoUrl);
+const { Tweet = {} } = models;
 
 const client = new Twitter({
   consumer_key,
@@ -21,8 +19,6 @@ const client = new Twitter({
   access_token_key,
   access_token_secret,
 });
-
-const TweetArchive = mongoose.model('tweetArchive');
 
 function getRandomElementIndex(arr) {
   let randomElementIndex = Math.floor(Math.random() * (arr.length - 1));
@@ -45,11 +41,11 @@ const twitterBotEngine = async function() {
   // make a search for the topic of choice
   const { statuses: tweets } = await client.get('search/tweets', {
     q: getSearchPhrase(),
-    count: 299,
+    count: 50,
   });
 
-  const foundTweets = tweets.map(({ id, text, user: { name, screen_name } }) => ({
-    id,
+  const foundTweets = tweets.map(({ id: tweet_id, text, user: { name, screen_name } }) => ({
+    tweet_id,
     text,
     name,
     screen_name,
@@ -60,17 +56,10 @@ const twitterBotEngine = async function() {
   const randomIndexOfFoundTweet = getRandomElementIndex(foundTweets);
   const foundTweet = foundTweets[randomIndexOfFoundTweet];
 
-  TweetArchive.findById(foundTweet.id, async err => {
-    if (err) {
-      if (foundTweet.screen_name === 'FreeCodeMine') {
-        return twitterBotEngine();
-      } else {
-        await TweetArchive.create(foundTweet);
-        return;
-      }
-    }
-    return twitterBotEngine();
-  });
+  const resolvedTweet = await Tweet.findByPk(foundTweet.tweet_id);
+
+  if (resolvedTweet || foundTweet.screen_name === 'FreeCodeMine') return twitterBotEngine()
+  if (resolvedTweet === null && foundTweet.screen_name !== 'FreeCodeMine') Tweet.create(foundTweet)
 
   try {
     await client.post('statuses/update', {
@@ -81,5 +70,8 @@ const twitterBotEngine = async function() {
   }
 };
 
-twitterBotEngine();
-setInterval(twitterBotEngine, 16200000);
+models.sequelize.sync().then(() => {
+  twitterBotEngine();
+  setInterval(twitterBotEngine, EVERY_12_HOURS);
+})
+

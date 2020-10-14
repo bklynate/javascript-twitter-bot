@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run prod:buildbot; node ./server-dist/bot.js",
+    "start:pm2": "npm run prod:buildbot; pm2 start ./server-dist/bot.js",
     "upgrade-interactive": "npm-check --update",
     "prod:buildbot": "rm -rf ./server-dist && babel ./src -d ./server-dist --copy-files",
     "dev": "nodemon --exec babel-node --presets env,stage-2 ./src/bot.js"
@@ -17,6 +18,7 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-2": "^6.24.1",
+    "dotenv": "^8.2.0",
     "mongoose": "^5.4.0",
     "pg": "^8.4.1",
     "sequelize": "^6.3.5",

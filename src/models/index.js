@@ -1,6 +1,9 @@
+import { config } from 'dotenv';
 import Sequelize from 'sequelize';
 
-const sequelize = new Sequelize('tweet_archive_db', 'postgres', 'postgres', {
+config();
+
+const sequelize = new Sequelize('tweet_archive_db', process.env.POSTGRES_USERNAME, process.env.POSTGRES_PASSWORD, {
   dialect: 'postgres',
 });
 
@@ -9,7 +12,7 @@ const models = {
 };
 
 // this handles the model associations
-Object.keys(models).forEach(function(modelName) {
+Object.keys(models).forEach(function (modelName) {
   if (models[modelName].associate) {
     models[modelName].associate(models);
   }

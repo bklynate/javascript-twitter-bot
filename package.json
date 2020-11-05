@@ -19,7 +19,6 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-2": "^6.24.1",
     "dotenv": "^8.2.0",
-    "mongoose": "^5.4.0",
     "pg": "^8.4.1",
     "sequelize": "^6.3.5",
     "twitter": "^1.7.0"

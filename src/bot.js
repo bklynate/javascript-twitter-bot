@@ -19,48 +19,49 @@ const client = new Twitter({
   access_token_secret: process.env.ACCESS_TOKEN_SECRET,
 });
 
-function getRandomElementIndex(arr) {
-  let randomElementIndex = Math.floor(Math.random() * (arr.length - 1));
-  // a check for edge cases where randomSearchElement equals 0 then minuses to -1
-  if (randomElementIndex < 0) return randomElementIndex++;
+function getRandomIndex(arr) {
+  let randomElementIndex = Math.floor(Math.random() * (arr.length));
   return randomElementIndex;
 }
 
-function getSearchPhrase() {
+function getTweet() {
   // this is the random element used to select a possible search query
-  const randomTopicalTwitterSearchIndex = getRandomElementIndex(topicalTwitterSearchPhrases);
-  const topicalTweetPhrase = topicalTwitterSearchPhrases[randomTopicalTwitterSearchIndex];
-  return topicalTweetPhrase;
+  const randomIndex = getRandomIndex(topicalTwitterSearchPhrases);
+  const tweet = topicalTwitterSearchPhrases[randomIndex];
+  return tweet;
 }
 
 const twitterBotEngine = async function() {
   // make a search for the topic of choice
   const { statuses: tweets } = await client.get('search/tweets', {
-    q: getSearchPhrase(),
+    q: getTweet(),
     count: 200,
   });
 
-  const foundTweets = tweets.map(({ id: tweet_id, text, user: { name, screen_name } }) => ({
+  const fetchedTweets = tweets.map(({ id: tweet_id, text, user: { name, screen_name } }) => ({
     tweet_id,
     text,
     name,
     screen_name,
   }));
 
-  if (foundTweets.length === 0) return twitterBotEngine();
+  if (fetchedTweets.length === 0) return twitterBotEngine();
 
-  const randomIndexOfFoundTweet = getRandomElementIndex(foundTweets);
-  const foundTweet = foundTweets[randomIndexOfFoundTweet];
-  if (foundTweet.text.includes('…')) return twitterBotEngine();
+  const randomIndexOfFetchedTweets = getRandomIndex(fetchedTweets);
+  const fetchedTweet = fetchedTweets[randomIndexOfFetchedTweets];
+  const { text, screen_name, tweet_id } = fetchedTweet
 
-  const resolvedTweet = await Tweet.findByPk(foundTweet.tweet_id);
-  if (resolvedTweet || foundTweet.screen_name === 'FreeCodeMine') return twitterBotEngine();
+  if (text.includes('…')) return twitterBotEngine();
 
-  Tweet.create(foundTweet)
+  const resolvedTweet = await Tweet.findByPk(tweet_id);
+
+  if (resolvedTweet || screen_name === 'FreeCodeMine') return twitterBotEngine();
+
+  Tweet.create(fetchedTweet)
 
   try {
     await client.post('statuses/update', {
-      status: foundTweet.text,
+      status: fetchedTweet.text,
     });
   } catch (e) {
     return 'Something went horribly wrong... but no worries!';
